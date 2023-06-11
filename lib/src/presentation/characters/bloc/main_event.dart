@@ -24,13 +24,6 @@ class AddMoreDataOnMainPageEvent extends MainPageEvent {
   List<Object?> get props => [nextPageUrl];
 }
 
-class LoadingDataOnMainPageEvent extends MainPageEvent {
-  const LoadingDataOnMainPageEvent();
-
-  @override
-  List<Object?> get props => [];
-}
-
 class DataLoadedOnMainPageEvent extends MainPageEvent {
   final CharacterModel? model;
 

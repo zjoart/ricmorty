@@ -19,9 +19,6 @@ class MainPageBloc extends Bloc<MainPageEvent, MainPageState> {
     on<AddMoreDataOnMainPageEvent>(
       (event, emitter) => _addMoreDataOnMainPageCasino(event, emitter),
     );
-    on<LoadingDataOnMainPageEvent>(
-      (event, emitter) => emitter(LoadingMainPageState()),
-    );
   }
 
   Future<void> _dataLoadedOnMainPageCasino(
@@ -42,13 +39,13 @@ class MainPageBloc extends Bloc<MainPageEvent, MainPageState> {
     GetTestDataOnMainPageEvent event,
     Emitter<MainPageState> emit,
   ) async {
-    add(const LoadingDataOnMainPageEvent());
+    emit(LoadingMainPageState());
     final RequestResponse res = await _charactersRepository.getCharacters();
+
     if (res.error != null) {
       emit(ErrorMainPageState(error: res.error!));
       return;
     }
-
     add(DataLoadedOnMainPageEvent(res.response));
   }
 
