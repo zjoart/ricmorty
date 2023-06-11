@@ -1,42 +1,33 @@
 import 'package:ricmort/src/presentation/characters/widgets/image_widget.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class CharacterWidget extends StatelessWidget {
   const CharacterWidget({super.key, required this.image, required this.name});
   final String image;
   final String name;
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(seconds: 1),
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-      margin: const EdgeInsets.only(bottom: 10) +
-          const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
+        decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
             BoxShadow(
               blurRadius: 4,
               spreadRadius: 0,
               offset: const Offset(0, 2),
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withOpacity(0.1),
             )
           ],
-          borderRadius: BorderRadius.circular(8)),
-      child: Row(children: [
-        NetworkImageWidget(image: image),
-        const SizedBox(
-          width: 20,
-          height: 50,
         ),
-        Text(
-          name,
-          style: Theme.of(context).primaryTextTheme.headlineSmall?.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: Colors.black.withOpacity(0.8)),
-        )
-      ]),
+        child: NetworkImageWidget(
+          image: image,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

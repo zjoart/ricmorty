@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:ricmort/src/utils/responsive.dart';
 
 class NetworkImageWidget extends StatelessWidget {
   const NetworkImageWidget(
       {Key? key,
       required this.image,
-      this.width = 50,
-      this.height = 50,
+      this.width = 100,
+      this.height = 100,
       this.fit})
       : super(key: key);
 
@@ -22,10 +23,14 @@ class NetworkImageWidget extends StatelessWidget {
       height: height,
       width: width,
       fit: fit,
-      progressIndicatorBuilder: (context, url, downloadProgress) =>
-          CircularProgressIndicator(
-        value: downloadProgress.progress,
-        color: Colors.brown,
+      progressIndicatorBuilder: (_, url, downloadProgress) => Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.xMargin(_, 15),
+            vertical: SizeConfig.yMargin(_, 15)),
+        child: CircularProgressIndicator(
+          value: downloadProgress.progress,
+          color: Colors.brown,
+        ),
       ),
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );

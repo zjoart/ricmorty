@@ -8,24 +8,27 @@ class ErrorDisplay extends StatelessWidget {
   final Function()? ontap;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-          child: Text(
-            error,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).primaryTextTheme.headlineSmall?.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: Colors.black.withOpacity(0.8)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Text(
+              error,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).primaryTextTheme.headlineSmall?.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black.withOpacity(0.8)),
+            ),
           ),
-        ),
-        if (retry)
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
-            child: GestureDetector(
+          if (retry) ...[
+            const SizedBox(
+              height: 25,
+            ),
+            GestureDetector(
               onTap: ontap,
               child: Container(
                 width: double.infinity,
@@ -45,9 +48,10 @@ class ErrorDisplay extends StatelessWidget {
                           color: Colors.white),
                 ),
               ),
-            ),
-          )
-      ],
+            )
+          ]
+        ],
+      ),
     );
   }
 }

@@ -1,11 +1,9 @@
-import 'package:ricmort/src/data/models/character.dart';
 import 'package:ricmort/src/data/repository/characters_repository.dart';
 import 'package:ricmort/src/presentation/characters/bloc/main_bloc.dart';
 import 'package:ricmort/src/presentation/characters/bloc/main_event.dart';
 import 'package:ricmort/src/presentation/characters/bloc/main_state.dart';
-import 'package:ricmort/src/presentation/characters/widgets/character_detail_widget.dart';
+import 'package:ricmort/src/presentation/characters/ui/character_detail_screen.dart';
 import 'package:ricmort/src/presentation/characters/widgets/character_widget.dart';
-import 'package:ricmort/src/presentation/characters/widgets/dialog.dart';
 import 'package:ricmort/src/presentation/characters/widgets/error_widget.dart';
 import 'package:ricmort/src/presentation/characters/widgets/loading_widget.dart';
 import 'package:ricmort/src/presentation/characters/widgets/search_field.dart';
@@ -33,13 +31,14 @@ class CharactersScreen extends StatelessWidget {
             listener: (context, state) {
               if (state is SuccessfulMainPageState && state.error.isNotEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    duration: const Duration(milliseconds: 600),
                     content: Text(
-                  state.error,
-                  style: const TextStyle().copyWith(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.red.withOpacity(0.8)),
-                )));
+                      state.error,
+                      style: const TextStyle().copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.red.withOpacity(0.8)),
+                    )));
               }
             },
             builder: (blocContext, state) {
@@ -85,11 +84,11 @@ class SuccessDisplay extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const SizedBox(
-          height: 15,
+          height: 25,
         ),
         SearchWidget(controller: search),
         const SizedBox(
-          height: 25,
+          height: 5,
         ),
         ValueListenableBuilder(
             valueListenable: search,
@@ -104,43 +103,57 @@ class SuccessDisplay extends StatelessWidget {
               return characters.isEmpty
                   ? const ErrorDisplay(error: "No result for search")
                   : Expanded(
-                      child: ListView.builder(
-                        cacheExtent: double.maxFinite,
-                        controller: scrollController
-                          ..addListener(() {
-                            if (scrollController.offset ==
-                                    scrollController.position.maxScrollExtent &&
-                                !state.loadingMoreData) {
-                              if (!state.loadingMoreData) {
-                                context.read<MainPageBloc>().add(
-                                    AddMoreDataOnMainPageEvent(
-                                        state.nextPageUrl));
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 20),
+                        child: GridView.builder(
+                          cacheExtent: double.maxFinite,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  //childAspectRatio: 1,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10),
+                          controller: scrollController
+                            ..addListener(() {
+                              if (scrollController.offset ==
+                                      scrollController
+                                          .position.maxScrollExtent &&
+                                  !state.loadingMoreData) {
+                                if (!state.loadingMoreData) {
+                                  context.read<MainPageBloc>().add(
+                                      AddMoreDataOnMainPageEvent(
+                                          state.nextPageUrl));
+                                }
                               }
-                            }
-                          }),
-                        itemCount: state.loadingMoreData
-                            ? (characters.length + 1)
-                            : characters.length,
-                        itemBuilder: (context, index) {
-                          bool showLoading = state.loadingMoreData &&
-                              index == characters.length;
+                            }),
+                          itemCount: state.loadingMoreData
+                              ? (characters.length + 1)
+                              : characters.length,
+                          itemBuilder: (context, index) {
+                            bool showLoading = state.loadingMoreData &&
+                                index == characters.length;
 
-                          return showLoading
-                              ? const LoadingWidget(height: 20, width: 20)
-                              : GestureDetector(
-                                  onTap: () {
-                                    showAnimatedDialog(
-                                        context,
-                                        CharacterDetailWidget(
-                                          character: characters[index],
-                                        ));
-                                  },
-                                  child: CharacterWidget(
-                                    image: characters[index].image,
-                                    name: characters[index].name,
-                                  ),
-                                );
-                        },
+                            return showLoading
+                                ? const LoadingWidget(height: 20, width: 20)
+                                : GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CharacterDetailScreen(
+                                                    character:
+                                                        characters[index],
+                                                  )));
+                                    },
+                                    child: CharacterWidget(
+                                      image: characters[index].image,
+                                      name: characters[index].name,
+                                    ),
+                                  );
+                          },
+                        ),
                       ),
                     );
             })

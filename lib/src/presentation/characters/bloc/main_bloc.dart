@@ -71,6 +71,9 @@ class MainPageBloc extends Bloc<MainPageEvent, MainPageState> {
                 ? null
                 : [...currentState.characters, ...res.response!.results],
             error: res.error));
+      } else if (currentState.nextPageUrl.isEmpty) {
+        emit(currentState.copyWith(
+            loadingMoreData: false, error: "End of Result List"));
       }
     }
   }

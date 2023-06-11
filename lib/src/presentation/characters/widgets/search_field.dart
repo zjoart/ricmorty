@@ -11,7 +11,14 @@ class SearchWidget extends StatelessWidget {
       ),
       child: TextFormField(
         controller: controller,
+        cursorColor: Colors.brown,
         decoration: const InputDecoration(
+            hintText: "Search Characters",
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                borderSide: BorderSide(
+                  color: Colors.grey,
+                )),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 borderSide: BorderSide(
@@ -19,7 +26,10 @@ class SearchWidget extends StatelessWidget {
                 )),
             suffixIcon: Padding(
               padding: EdgeInsets.all(10),
-              child: Icon(Icons.search),
+              child: Icon(
+                Icons.search,
+                color: Colors.brown,
+              ),
             )),
       ),
     );

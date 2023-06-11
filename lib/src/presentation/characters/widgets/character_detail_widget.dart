@@ -1,5 +1,6 @@
 import 'package:ricmort/src/data/models/character.dart';
 import 'package:flutter/material.dart';
+import 'package:ricmort/src/utils/responsive.dart';
 
 class CharacterDetailWidget extends StatelessWidget {
   final Character character;
@@ -8,14 +9,18 @@ class CharacterDetailWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final style = Theme.of(context).primaryTextTheme.headlineSmall?.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: Colors.black.withOpacity(0.8));
+        fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white);
+    final leadText = [
+      "Name",
+      "Gender",
+      "Species",
+    ];
+    final subText = [character.name, character.gender, character.species];
     return AnimatedContainer(
       duration: const Duration(seconds: 1),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       decoration: BoxDecoration(
-          color: const Color(0xFFF5F2F0),
+          color: Colors.black.withOpacity(0.5),
           border: Border.all(color: Colors.black.withOpacity(0.1)),
           boxShadow: [
             BoxShadow(
@@ -24,50 +29,29 @@ class CharacterDetailWidget extends StatelessWidget {
                 offset: const Offset(0, 1),
                 color: Theme.of(context).secondaryHeaderColor.withOpacity(0.06))
           ],
-          borderRadius: BorderRadius.circular(15)),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       child: Column(children: [
-        Row(
-          children: [
-            Text(
-              "Name:",
-              style: style,
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Text(character.name, style: style),
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          children: [
-            Text(
-              "Gender:",
-              style: style,
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Text(character.gender, style: style),
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          children: [
-            Text(
-              "Species:",
-              style: style,
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            Text(character.species, style: style),
-          ],
-        )
+        ...List.generate(
+            leadText.length,
+            (index) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 49,
+                        child: Text(
+                          "${leadText[index]}:",
+                          style: style,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(subText[index], style: style),
+                    ],
+                  ),
+                )),
       ]),
     );
   }
