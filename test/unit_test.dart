@@ -1,16 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:mockito/annotations.dart';
 
 import 'package:mockito/mockito.dart';
-import 'package:http/http.dart' as http;
-import 'package:ricmort/main.dart';
-import 'package:ricmort/src/data/models/character.dart';
 import 'package:ricmort/src/data/models/character_model.dart';
 import 'package:ricmort/src/data/repository/characters_repository.dart';
 import 'package:ricmort/src/data/repository/characters_repository_impl.dart';

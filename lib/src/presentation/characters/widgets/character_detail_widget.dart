@@ -1,6 +1,5 @@
 import 'package:ricmort/src/data/models/character.dart';
 import 'package:flutter/material.dart';
-import 'package:ricmort/src/utils/responsive.dart';
 
 class CharacterDetailWidget extends StatelessWidget {
   final Character character;
