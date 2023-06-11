@@ -1,16 +1,28 @@
-# ricmort
+# Ricmorty
 
-A flutter application implementing pagination
+Earnipay mobile developer application test.
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Running Tests](#running-tests)
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To run the application 
 
-A few resources to get you started if this is your first Flutter project:
+```sh
+$ flutter pub get
+$ flutter run 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Running Tests
+
+To run all unit tests
+
+```sh
+$ flutter test 
+```
+
+
+
