@@ -102,7 +102,7 @@ if (scrollController.offset ==
 
 ```
 
-- Widgets were optimized with the use of const and avoiding expensive computationals in the widget tree
+- Widgets were optimized with the use of const and avoiding expensive computation in the widget tree
 
 
 
