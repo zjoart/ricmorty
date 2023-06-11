@@ -32,6 +32,9 @@ class Character extends Equatable {
   @override
   List<Object?> get props =>
       [name, image, created, status, url, gender, id, species];
+
   @override
-  bool? get stringify => true;
+  String toString() {
+    return "$name $gender $species".toLowerCase();
+  }
 }
