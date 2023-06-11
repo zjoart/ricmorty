@@ -2,10 +2,6 @@
 
 Earnipay mobile developer application test.
 
-## Table of Contents
-
-- [Getting Started](#getting-started)
-- [Running Tests](#running-tests)
 ## Getting Started
 
 To run the application 
