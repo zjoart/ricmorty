@@ -74,9 +74,35 @@ $ flutter test
 cacheExtent: double.maxFinite
 
 ```
-- pagination and lazy loading. Instead of loading all items at once, load them in smaller batches as the user scrolls. This approach reduces the initial load time and improves performance by only rendering the visible items.
-- shouldRebuildSemantics callback. This callback determines whether the semantics information for an item needs to be rebuilt when the widget is updated
+- pagination and lazy loading. Instead of loading all items at once, Items were loaded on demand as the user scrolls. This approach reduces the initial load time and improves performance by only rendering the visible items.
 
+
+
+```sh
+
+if (scrollController.offset ==
+
+                                      scrollController
+
+                                          .position.maxScrollExtent &&
+
+                                  !state.loadingMoreData) {
+
+                                if (!state.loadingMoreData) {
+
+                                  context.read<MainPageBloc>().add(
+
+                                      AddMoreDataOnMainPageEvent(
+
+                                          state.nextPageUrl));
+
+                                }
+
+                              }
+
+```
+
+- Widgets were optimized with the use of const and avoiding expensive computationals in the widget tree
 
 
 
