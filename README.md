@@ -24,7 +24,7 @@ $ flutter test
 
 - Lazy loading and image cache was implemented to improve Image loading and reduce image network request
 
-```sh
+```dart
 
   @override
 
@@ -69,35 +69,26 @@ $ flutter test
 
 - cacheExtent property of the GridView.builder allows to control how many offscreen items are retained in the cache.
 
-```sh
+```dart
 
 cacheExtent: double.maxFinite
 
 ```
-- pagination and lazy loading. Instead of loading all items at once, Items were loaded on demand as the user scrolls. This approach reduces the initial load time and improves performance by only rendering the visible items.
+- pagination and lazy loading. Instead of loading all items at once, Items will be loaded on demand as the user scrolls. This approach reduces the initial load time and improves performance by only rendering the visible items.
 
 
 
-```sh
+```dart
 
 if (scrollController.offset ==
-
                                       scrollController
-
                                           .position.maxScrollExtent &&
-
                                   !state.loadingMoreData) {
-
                                 if (!state.loadingMoreData) {
-
                                   context.read<MainPageBloc>().add(
-
                                       AddMoreDataOnMainPageEvent(
-
                                           state.nextPageUrl));
-
                                 }
-
                               }
 
 ```
