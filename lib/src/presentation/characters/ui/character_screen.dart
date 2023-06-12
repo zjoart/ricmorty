@@ -101,7 +101,7 @@ class SuccessDisplay extends StatelessWidget {
               };
 
               return characters.isEmpty
-                  ? const ErrorDisplay(error: "No result for search")
+                  ? ErrorDisplay(error: "No result for ${value.text}")
                   : Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
