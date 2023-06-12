@@ -9,12 +9,12 @@ import 'package:ricmort/src/presentation/characters/bloc/main_bloc.dart';
 import 'package:ricmort/src/presentation/characters/bloc/main_event.dart';
 import 'package:ricmort/src/presentation/characters/bloc/main_state.dart';
 
+import 'main_bloc_test.mocks.dart';
 import 'src/mock_data.dart';
-import 'unit_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<CharactersRepositoryImpl>()])
 void main() {
-  group('Ricmorty Tests', () {
+  group('Main Bloc Tests', () {
     late MainPageBloc mainBloc;
     late CharactersRepository repo;
 
@@ -42,15 +42,6 @@ void main() {
     });
 
     test('GetTestDataOnMainPageEvent Empty State', () async {
-      final charactersEmptyJsonMock = {
-        "info": {
-          "count": 826,
-          "pages": 42,
-          "next": "https://rickandmortyapi.com/api/character?page=2",
-          "prev": null
-        },
-        "results": []
-      };
       final response = (
         error: null,
         response: CharacterModel.fromJson(charactersEmptyJsonMock)
@@ -71,9 +62,13 @@ void main() {
     test('GetTestDataOnMainPageEvent Error State', () async {
       const response = (error: "An Error occurred", response: null);
       when(repo.getCharacters()).thenAnswer((_) async => response);
+
       expectLater(
         mainBloc.stream,
-        emits(isA<LoadingMainPageState>()),
+        emitsInOrder([
+          isA<LoadingMainPageState>(),
+          isA<ErrorMainPageState>(),
+        ]),
       );
 
       mainBloc.add(const GetTestDataOnMainPageEvent());

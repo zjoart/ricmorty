@@ -20,7 +20,6 @@ class CharacterDetailWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.5),
-          border: Border.all(color: Colors.black.withOpacity(0.1)),
           boxShadow: [
             BoxShadow(
                 blurRadius: 10,
